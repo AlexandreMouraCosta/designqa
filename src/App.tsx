@@ -30,14 +30,16 @@ const categories = [
 function App() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="flex items-center justify-between px-6 py-4 border-b border-border">
-        <span className="font-semibold">Meridian & Co.</span>
-        <nav className="flex items-center gap-4">
-          <button className="text-sm text-muted-foreground hover:text-foreground">
-            Shop
-          </button>
-          <Button variant="ghost">Sign in</Button>
-        </nav>
+      <header className="border-b border-border">
+        <div className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto">
+          <span className="font-semibold">Meridian & Co.</span>
+          <nav className="flex items-center gap-4">
+            <a href="#" className="text-sm text-muted-foreground hover:text-foreground">
+              Shop
+            </a>
+            <Button variant="ghost">Sign in</Button>
+          </nav>
+        </div>
       </header>
 
       <section className="grid grid-cols-1 md:grid-cols-2 items-center gap-lg px-6 py-xl max-w-5xl mx-auto">
@@ -93,8 +95,10 @@ function App() {
         <Button size="lg">Create your account</Button>
       </section>
 
-      <footer className="px-6 py-md text-center text-sm text-muted-foreground border-t border-border">
-        © 2026 Meridian & Co.
+      <footer className="border-t border-border">
+        <div className="px-6 py-md text-center text-sm text-muted-foreground max-w-5xl mx-auto">
+          © 2026 Meridian & Co.
+        </div>
       </footer>
     </div>
   );
