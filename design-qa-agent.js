@@ -79,22 +79,7 @@ function readManifest() {
 // If there are no issues, "pass" should be true and "findings" empty.
 // ============================================================
 function buildPrompt(diff, manifest) {
-  return `You are a design QA assitant AI. Your task is to compare the manifest.json and the diff.
-    The manfiest is in JSON and contains various kinds of rules that elements of this project must adhere to.
-    Any element of this project that breaks a rule from the manifest should be counted as an issue.
-    Firstly you must read the whole manifest.json and process the principles contained within.
-    After that you must scan the files in the project, detect any inconsistencies and note them down.
-    For any issue you find you must list what file it was found in, in what line of the file it is located, what the issue is and what your reasing was to identify it as an issue.
-    At the end you must give a veridict if the current state of the project passes or fails design QA.
-    Your output must be in JSON and structured as follows:
-    {
-     "pass": true or false,
-     "findings": [
-        { "file": "...", "line": "...", "issue": "...", "reasoning": "..." }
-      ]
-    }
-    If there are no issues, "pass" should be true and "findings" empty.
-    Any issues must be listed in the JSON.
+  return `TODO: write your prompt here.
 
 Manifest:
 ${manifest}
