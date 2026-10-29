@@ -79,28 +79,34 @@ function readManifest() {
 // If there are no issues, "pass" should be true and "findings" empty.
 // ============================================================
 function buildPrompt(diff, manifest) {
-  return `You are a design QA assitant AI. Your task is to compare the manifest.json and the diff.
-    The manfiest is in JSON and contains various kinds of rules that elements of this project must adhere to.
-    Any element of this project that breaks a rule from the manifest should be counted as an issue.
-    Firstly you must read the whole manifest.json and process the principles contained within.
-    After that you must scan the files in the project, detect any inconsistencies and note them down.
-    For any issue you find you must list what file it was found in, in what line of the file it is located, what the issue is and what your reasing was to identify it as an issue.
-    At the end you must give a veridict if the current state of the project passes or fails design QA.
-    Your output must be in JSON and structured as follows:
-    {
-     "pass": true or false,
-     "findings": [
-        { "file": "...", "line": "...", "issue": "...", "reasoning": "..." }
-      ]
-    }
-    If there are no issues, "pass" should be true and "findings" empty.
-    Any issues must be listed in the JSON.
+  return `You are a design QA reviewer. Check whether the code changes in a pull request follow the rules in the design system manifest below.
 
-Manifest:
+<manifest>
 ${manifest}
+</manifest>
 
-Diff:
-${diff}`;
+<diff>
+${diff}
+</diff>
+
+How to review:
+- The manifest is the only source of truth. Only report something as an issue if it breaks a specific rule in the manifest. Do not flag style preferences, best practices, or anything the manifest does not cover.
+- Only check lines the diff adds or changes (lines starting with "+"). Ignore removed lines and unchanged context.
+- Ignore changes to the manifest itself and to this agent's own script (design-qa-agent.js). They define or run the rules, so they cannot break them.
+- For each issue, give the file path, the line number in the new version of the file, which manifest rule is broken, and your reasoning.
+- "pass" is true only if there are no findings.
+
+Output format — this is critical:
+Respond with a single JSON object and nothing else. No markdown code fences, no headings, no explanation before or after it. Put all of your reasoning inside the "reasoning" fields. Your entire response must be parseable by JSON.parse().
+
+{
+  "pass": true or false,
+  "findings": [
+    { "file": "path/to/file", "line": "42", "issue": "which manifest rule is broken and how", "reasoning": "why this line breaks that rule" }
+  ]
+}
+
+If there are no issues, respond with exactly: {"pass": true, "findings": []}`;
 }
 
 // ============================================================
